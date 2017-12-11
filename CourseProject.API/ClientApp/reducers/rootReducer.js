@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import beersReducer from './beerReducer';
-import favoritesReducer from './favoriteReducer';
+import userReducer from './userReducer';
 
 export default combineReducers({
-	beers: beersReducer,
-	favorites: favoritesReducer,
+	user: userReducer,
 });

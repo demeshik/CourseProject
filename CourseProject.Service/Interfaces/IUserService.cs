@@ -1,15 +1,13 @@
 ﻿using CourseProject.Service.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CourseProject.Service
 {
     public interface IUserService
     {
+        Task<UserInfo> GetCurrentUserInfo(string username);
         Task<UserViewModel> Register(UserRegistrationModel newUser);
-        Task Login(UserLoginViewModel loginModel);
+        Task<UserInfo> Login(UserLoginViewModel loginModel);
         Task Logout();
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CourseProject.Service;
+﻿using CourseProject.Service;
 using CourseProject.Service.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace CourseProject.Web.Controllers
 {
@@ -20,6 +18,19 @@ namespace CourseProject.Web.Controllers
             this.userService = userService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Me()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var result = await userService.GetCurrentUserInfo(User.Identity.Name);
+
+                return Ok(result);
+            }
+
+            return StatusCode((int)HttpStatusCode.Unauthorized);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login([FromBody]UserLoginViewModel model)
         {
@@ -27,9 +38,9 @@ namespace CourseProject.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await userService.Login(model);
+                    var userInfo = await userService.Login(model);
 
-                    return RedirectToAction("Index", "Home");
+                    return Ok(userInfo);
                 }
 
                 return BadRequest();

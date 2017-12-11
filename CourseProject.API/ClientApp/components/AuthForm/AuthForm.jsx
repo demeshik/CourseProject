@@ -1,61 +1,105 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
+import { indigo } from 'material-ui/colors';
 import SwipeableViews from 'react-swipeable-views';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import { FormControlLabel } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
 
-function LoginForm(props) {
-    let login = "", password = "";
+const styles = {
+    tabsContainer: {
+        width: '50%',
+        marginTop: '200px',
+        marginLeft: '25%',
+    },
+    bar: {
+        background: indigo[900],
+    }
+};
 
-    const classes = {
-        marginTop: "50px",
-        width: "400px"
+//TODO: Add validation
+
+class LoginForm extends React.PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            rememberMe: 0,
+        };
+
+        this.loginForm = {
+            username: null,
+            password: null,
+        };
+
+        this.changeValueHandler = this.changeValueHandler.bind(this);
+        this.checkerHandler = this.checkerHandler.bind(this);
+        this.login = this.login.bind(this);
+    }
+
+    login() {
+        this.props.loginCallback({...this.loginForm, rememberMe: this.state.rememberMe});
+    }
+
+    changeValueHandler(e) {
+        this.loginForm[e.target.id] = e.target.value;
     };
 
-    let changeValue = newValue => {
-        login = newValue;
+    checkerHandler(e) {
+        this.setState({
+            rememberMe: e.target.checked,
+        });
     };
 
-    let showValues = (e) => {
-        alert(login + " " + password)
-    };
+    render() {
+        const classes = {
+            marginTop: "50px",
+            width: "400px"
+        };
 
-    return (
-        <Paper style={classes}>
-            <Typography component="div">
-                <TextField
-                    style={{width: "100%"}}
-                    required
-                    id="login"
-                    label="Login"
-                    onChange={changeValue}
-                    margin="normal"
-                />
-                <TextField
-                    required
-                    style={{width: "100%"}}
-                    id="password"
-                    label="Password"
-                    onChange={changeValue}
-                    type="password"
-                    margin="normal"
-                />
-
-                <input id="login-submit" type="submit" style={{display: 'none'}} />
-
-                <label htmlFor="login-submit">
-                    <Button onClick={showValues}>
+        return (
+            <Paper style={classes}>
+                <Typography component="div">
+                    <TextField
+                        style={{width: "100%"}}
+                        required
+                        id="username"
+                        label="Username"
+                        onChange={this.changeValueHandler}
+                        margin="normal"
+                    />
+                    <TextField
+                        required
+                        style={{width: "100%"}}
+                        id="password"
+                        label="Password"
+                        onChange={this.changeValueHandler}
+                        type="password"
+                        margin="normal"
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={this.state.rememberMe}
+                                onChange={this.checkerHandler}
+                                value="rememberMe"
+                            />
+                        }
+                        label="Remember Me"
+                    />
+                    <br />
+                    <Button onClick={this.login}>
                         Log in
                     </Button>
-                </label>
-
-
-            </Typography>
-        </Paper>
-    )
+                </Typography>
+            </Paper>
+        )
+    }
 }
 
 function RegistrationForm(props) {
@@ -68,7 +112,7 @@ function RegistrationForm(props) {
     )
 }
 
-export default class AuthForm extends React.Component {
+class AuthForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -77,7 +121,7 @@ export default class AuthForm extends React.Component {
         };
 
         this.onTabChangeHandler = this.onTabChangeHandler.bind(this);
-        this.onViewChangeHandler = this.onViewChangeHandler(this);
+        this.onViewChangeHandler = this.onViewChangeHandler.bind(this);
     }
 
     onTabChangeHandler(event, value) {
@@ -92,9 +136,9 @@ export default class AuthForm extends React.Component {
         const { value } = this.state;
 
         return (
-            <div>
+            <div className={this.props.classes.tabsContainer}>
                 <AppBar position="static">
-                    <Tabs value={value} onChange={this.onTabChangeHandler}>
+                    <Tabs centered value={value} className={this.props.classes.bar} onChange={this.onTabChangeHandler}>
                         <Tab label="Login" />
                         <Tab label="Registration" />
                     </Tabs>
@@ -105,10 +149,12 @@ export default class AuthForm extends React.Component {
                     index={value}
                     onChangeIndex={this.onViewChangeHandler}
                 >
-                    <LoginForm/>
-                    <RegistrationForm/>
+                    <LoginForm loginCallback={this.props.onLoginCallback} />
+                    <RegistrationForm />
                 </SwipeableViews>
             </div>
         )
     }
 }
+
+export default withStyles(styles)(AuthForm);

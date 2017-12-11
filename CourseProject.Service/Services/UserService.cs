@@ -3,6 +3,7 @@ using CourseProject.Data;
 using CourseProject.Service.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CourseProject.Service
@@ -10,21 +11,46 @@ namespace CourseProject.Service
     public class UserService : IUserService
     {
         private readonly UserManager<User> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<User> signInManager;
         private readonly IMapper mapper;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, 
+            IMapper mapper, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
             this.signInManager = signInManager;
             this.mapper = mapper;
         }
 
-        public async Task Login(UserLoginViewModel loginModel)
+        public async Task<UserInfo> GetCurrentUserInfo(string username)
+        {
+            var user = await userManager.FindByNameAsync(username);
+            var userRoles = await userManager.GetRolesAsync(user);
+            return new UserInfo
+            {
+                Username = username,
+                Roles = (List<string>)userRoles
+            };
+        }
+
+        public async Task<UserInfo> Login(UserLoginViewModel loginModel)
         {
             var result = await signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, loginModel.RememberMe, false);
 
-            if (!result.Succeeded)
+            if (result.Succeeded)
+            {
+                var user = await userManager.FindByNameAsync(loginModel.Username);
+                var roles = await userManager.GetRolesAsync(user);
+
+                return new UserInfo
+                {
+                    Username = loginModel.Username,
+                    Roles = (List<string>)roles
+                };
+            }
+            else
             {
                 throw new ArgumentException("Invalid user credentials");
             }

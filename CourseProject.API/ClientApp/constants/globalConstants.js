@@ -1,3 +1,2 @@
-export const BASE_PATH = 'https://api.punkapi.com/v2/beers/';
-export const STORE_NAME = 'favorites';
-export const ITEMS_PER_PAGE = 12;
+export const CLOUDINARY_UPLOAD_PATH = 'https://api.cloudinary.com/v1_1/djrazor308/image/upload';
+export const PRESET_NAME = 'courseproject';

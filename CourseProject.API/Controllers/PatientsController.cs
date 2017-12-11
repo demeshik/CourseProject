@@ -19,7 +19,6 @@ namespace CourseProject.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var str = "hello, my dear passengers!";
             return Ok();
         }
     }

@@ -9,7 +9,7 @@ import Table, {
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
+import PatientCreationForm from '../PatientCreationForm/PatientCreationForm';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -127,7 +127,7 @@ export default class PatientsList extends React.Component {
                     onChangeIndex={this.onViewChangeHandler}
                 >
                     {this.Table}
-                    <Paper>Hello, dear!</Paper>
+                    <PatientCreationForm />
                 </SwipeableViews>
 
             </Paper>

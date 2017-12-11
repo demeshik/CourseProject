@@ -1,0 +1,12 @@
+body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+}
+.app {
+    overflow: hidden;
+}
+
+.btn-app {
+    margin: 0;
+    padding: 0;
+}

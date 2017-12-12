@@ -1,4 +1,4 @@
-﻿using CourseProject.Service;
+﻿using CourseProject.Service.Interfaces;
 using CourseProject.Service.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;

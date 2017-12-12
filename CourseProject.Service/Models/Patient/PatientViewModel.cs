@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CourseProject.Data
+namespace CourseProject.Service.Models
 {
-    public class Patient:BaseEntity
+    public class PatientViewModel
     {
         public string Avatar { get; set; }
         public string Name { get; set; }
@@ -15,15 +15,9 @@ namespace CourseProject.Data
         public string Citizenship { get; set; }
         public string Sex { get; set; }
         public int Age { get; set; }
-        public ICollection<MedicalCapture> MedicalCaptures { get; set; }
-        public ICollection<History> Deseases { get; set; }
-        public ICollection<Analyze> Analyzes { get; set; }
+        public ICollection<MedicalCaptureViewModel> MedicalCaptures { get; set; }
+        public ICollection<HistoryViewModel> Deseases { get; set; }
+        public ICollection<AnalyzeViewModel> Analyzes { get; set; }
 
-        public Patient()
-        {
-            MedicalCaptures = new List<MedicalCapture>();
-            Deseases = new List<History>();
-            Analyzes = new List<Analyze>();
-        }
     }
 }

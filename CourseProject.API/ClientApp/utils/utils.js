@@ -20,3 +20,9 @@ export function uploadImage(image) {
             })
 	});
 }
+
+export function patientFormValidator(patientForm) {
+    return Object.keys(patientForm).some(key => {
+       return patientForm[key] === null || patientForm[key] === "";
+    });
+}

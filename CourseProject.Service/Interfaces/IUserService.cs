@@ -1,7 +1,7 @@
 ﻿using CourseProject.Service.Models;
 using System.Threading.Tasks;
 
-namespace CourseProject.Service
+namespace CourseProject.Service.Interfaces
 {
     public interface IUserService
     {

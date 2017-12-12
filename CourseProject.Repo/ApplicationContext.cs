@@ -27,6 +27,7 @@ namespace CourseProject.Repo
             new PatientMap(builder.Entity<Patient>());
             new HistoryMap(builder.Entity<History>());
             new AnalyzeMap(builder.Entity<Analyze>());
+            new MedicalCaptureMap(builder.Entity<MedicalCapture>());
         }
     }
 }

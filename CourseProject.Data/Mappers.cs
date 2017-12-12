@@ -28,13 +28,20 @@ namespace CourseProject.Data
             builder.Property(t => t.Age).IsRequired();
             builder.Property(t => t.BornDate).IsRequired();
             builder.Property(t => t.Citizenship).IsRequired();
-            builder.Property(t => t.MedicalPhotos).IsRequired();
             builder.Property(t => t.Name).IsRequired();
             builder.Property(t => t.PhoneNumber).IsRequired();
             builder.Property(t => t.Sex).IsRequired();
             builder.Property(t => t.Surname).IsRequired();
 
             builder.HasMany(c => c.Analyzes)
+                .WithOne(p => p.Patient)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(c => c.Deseases)
+                .WithOne(p => p.Patient)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(c => c.MedicalCaptures)
                 .WithOne(p => p.Patient)
                 .OnDelete(DeleteBehavior.Cascade);
         }
@@ -59,6 +66,17 @@ namespace CourseProject.Data
             builder.Property(t => t.Explanation).IsRequired();
             builder.Property(t => t.Name).IsRequired();
             builder.Property(t => t.TotalResult).IsRequired();
+        }
+    }
+
+    public class MedicalCaptureMap
+    {
+        public MedicalCaptureMap(EntityTypeBuilder<MedicalCapture> builder)
+        {
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.Time).IsRequired();
+            builder.Property(t => t.Type).IsRequired();
+            builder.Property(t => t.Url).IsRequired();
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using CourseProject.Data;
+using CourseProject.Service.Interfaces;
 using CourseProject.Service.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CourseProject.Service
+namespace CourseProject.Service.Services
 {
     public class UserService : IUserService
     {
@@ -16,7 +17,7 @@ namespace CourseProject.Service
         private readonly IMapper mapper;
 
         public UserService(UserManager<User> userManager, SignInManager<User> signInManager, 
-            IMapper mapper, RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;

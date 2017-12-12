@@ -1,7 +1,8 @@
 using AutoMapper;
 using CourseProject.Data;
 using CourseProject.Repo;
-using CourseProject.Service;
+using CourseProject.Service.Interfaces;
+using CourseProject.Service.Services;
 using CourseProject.Web.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,7 +40,8 @@ namespace CourseProject.API
                 .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddTransient<IEntityService<Patient>, EntityService<Patient>>();
+            services.AddScoped(typeof(IPatientRepository), typeof(PatientRepository));
+            services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IUserService, UserService>();
 
             services.AddMvc();

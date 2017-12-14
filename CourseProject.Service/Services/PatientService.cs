@@ -4,6 +4,8 @@ using CourseProject.Repo;
 using CourseProject.Service.Interfaces;
 using CourseProject.Service.Models;
 using CourseProject.Service.Models.Patient;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CourseProject.Service.Services
@@ -44,6 +46,25 @@ namespace CourseProject.Service.Services
 
             repository.Update(appPatient);
             repository.SaveChanges();
+        }
+
+        public PatientViewModel Get(int id)
+        {
+            Patient patient = repository.Get(id);
+            return mapper.Map<Patient, PatientViewModel>(patient);
+        }
+
+        public List<PatientInfoModel> Get(int count, int page)
+        {
+            var patients = repository.GetAll().Skip((page - 1) * count).Take(count).ToList();
+            var patientsInfo = new List<PatientInfoModel>();
+
+            foreach (Patient patient in patients)
+            {
+                patientsInfo.Add(mapper.Map<Patient, PatientInfoModel>(patient));
+            }
+
+            return patientsInfo;
         }
     }
 }

@@ -2,6 +2,7 @@
 using CourseProject.Data;
 using CourseProject.Service.Models;
 using CourseProject.Service.Models.Patient;
+using System.Collections.Generic;
 
 namespace CourseProject.Service.Infrastructure
 {
@@ -18,6 +19,8 @@ namespace CourseProject.Service.Infrastructure
             CreateMap<Patient, PatientCreationModel>();
 
             CreateMap<Patient, PatientInfoModel>();
+
+            CreateMap<Patient, PatientViewModel>();
 
             CreateMap<HistoryViewModel, History>();
             CreateMap<History, HistoryViewModel>();

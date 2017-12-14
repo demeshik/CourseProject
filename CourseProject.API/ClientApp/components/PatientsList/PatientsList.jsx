@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Avatar from 'material-ui/Avatar';
 import Table, {
@@ -15,9 +16,15 @@ import PatientCreationForm from '../PatientCreationForm/PatientCreationForm';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
+import { loadPatientsInfo } from '../../actions/patientActions';
+
 class PatientsList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.data = {
+            page: 0
+        };
 
         this.state = {
             tab: 0,
@@ -25,6 +32,12 @@ class PatientsList extends React.Component {
 
         this.onViewChangeHandler = this.onViewChangeHandler.bind(this);
         this.onTabChangeHandler = this.onTabChangeHandler.bind(this);
+    }
+
+    componentWillMount() {
+        this.data.page++;
+        const { loadData } = this.props;
+        loadData(this.data.page);
     }
 
     onTabChangeHandler(event, value) {
@@ -120,4 +133,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, null)(PatientsList);
+function mapDispatchToProps(dispatch) {
+    return {
+        loadData: bindActionCreators(loadPatientsInfo, dispatch),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientsList);

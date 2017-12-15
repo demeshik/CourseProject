@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseProject.Service.Models.Analyze;
+using System;
 using System.Collections.Generic;
 
 namespace CourseProject.Service.Models

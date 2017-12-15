@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CourseProject.Service.Models
+namespace CourseProject.Service.Models.Analyze
 {
     public class AnalyzeViewModel
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CourseProject.Repo
+namespace CourseProject.Repo.Repositories
 {
     public class Repository<T> : IRepository<T> where T: BaseEntity
     {
@@ -20,7 +20,7 @@ namespace CourseProject.Repo
 
         public T Get(int id)
         {
-            return entities.SingleOrDefault(s => s.Id == id);
+            return entities.SingleOrDefault(s => s.Id == id).Include;
         }
 
         public IEnumerable<T> GetAll()

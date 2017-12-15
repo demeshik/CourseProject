@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CourseProject.Repo
+namespace CourseProject.Repo.Repositories
 {
     public class PatientRepository : Repository<Patient>, IPatientRepository
     {

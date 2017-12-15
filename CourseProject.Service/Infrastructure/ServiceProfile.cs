@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CourseProject.Data;
 using CourseProject.Service.Models;
+using CourseProject.Service.Models.Analyze;
 using CourseProject.Service.Models.Patient;
 using System.Collections.Generic;
 

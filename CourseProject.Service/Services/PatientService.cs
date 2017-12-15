@@ -3,6 +3,7 @@ using CourseProject.Data;
 using CourseProject.Repo;
 using CourseProject.Service.Interfaces;
 using CourseProject.Service.Models;
+using CourseProject.Service.Models.Analyze;
 using CourseProject.Service.Models.Patient;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +33,9 @@ namespace CourseProject.Service.Services
             return infoPatient;
         }
 
-        public async Task AddCaptures(MedicalCapturesUploadModel captures)
+        public void AddCaptures(MedicalCapturesUploadModel captures)
         {
-            var appPatient = await repository.GetPatientByName(captures.Patientname);
+            var appPatient = repository.Get(captures.PatientId);
 
             foreach (var capture in captures.Captures)
             {
@@ -42,6 +43,22 @@ namespace CourseProject.Service.Services
                 appCapture.Patient = appPatient;
 
                 appPatient.MedicalCaptures.Add(appCapture);
+            }
+
+            repository.Update(appPatient);
+            repository.SaveChanges();
+        }
+
+        public void AddAnalyzes(AnalyzesUploadModel analyzes)
+        {
+            var appPatient = repository.Get(analyzes.PatientId);
+
+            foreach (var analyze in analyzes.Analyzes)
+            {
+                var appAnalyze = Mapper.Map<AnalyzeViewModel, Analyze>(analyze);
+                appAnalyze.Patient = appPatient;
+
+                appPatient.Analyzes.Add(appAnalyze);
             }
 
             repository.Update(appPatient);
@@ -66,5 +83,6 @@ namespace CourseProject.Service.Services
 
             return patientsInfo;
         }
+
     }
 }

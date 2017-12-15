@@ -1,4 +1,5 @@
 ﻿using CourseProject.Service.Models;
+using CourseProject.Service.Models.Analyze;
 using CourseProject.Service.Models.Patient;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace CourseProject.Service.Interfaces
         PatientViewModel Get(int id);
         List<PatientInfoModel> Get(int count, int page);
         PatientInfoModel Add(PatientCreationModel patient);
-        Task AddCaptures(MedicalCapturesUploadModel captures);
+        void AddCaptures(MedicalCapturesUploadModel captures);
+        void AddAnalyzes(AnalyzesUploadModel analyzes);
     }
 }

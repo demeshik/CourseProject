@@ -1,5 +1,6 @@
 ﻿using CourseProject.Service.Interfaces;
 using CourseProject.Service.Models;
+using CourseProject.Service.Models.Analyze;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -50,9 +51,17 @@ namespace CourseProject.Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Captures([FromBody]MedicalCapturesUploadModel newCaptures)
+        public IActionResult Captures([FromBody]MedicalCapturesUploadModel newCaptures)
         {
-            await patientService.AddCaptures(newCaptures);
+            patientService.AddCaptures(newCaptures);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public IActionResult Analyzes([FromBody]AnalyzesUploadModel newAnalyzes)
+        {
+            patientService.AddAnalyzes(newAnalyzes);
             return Ok();
         }
     }

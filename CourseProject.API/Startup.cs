@@ -1,6 +1,7 @@
 using AutoMapper;
 using CourseProject.Data;
 using CourseProject.Repo;
+using CourseProject.Repo.Repositories;
 using CourseProject.Service.Interfaces;
 using CourseProject.Service.Services;
 using CourseProject.Web.Utils;

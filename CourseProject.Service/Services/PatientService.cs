@@ -67,7 +67,8 @@ namespace CourseProject.Service.Services
 
         public PatientViewModel Get(int id)
         {
-            Patient patient = repository.Get(id);
+            Patient patient = repository.GetByIdWithFullInfo(id);
+
             return mapper.Map<Patient, PatientViewModel>(patient);
         }
 

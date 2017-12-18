@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/es/Typography/Typography';
+import ExpansionPanel, {
+    ExpansionPanelSummary,
+    ExpansionPanelDetails,
+} from 'material-ui/ExpansionPanel';
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
@@ -65,7 +73,25 @@ class PatientPage extends React.Component {
                             Zdes budet photo!
                         </Grid>
                         <Grid item sm={12} lg={12}>
-                            <Analyzes analyzes={[]} />
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography type="title">Analyzes</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Analyzes patient={storePatient.currentPatient} />
+                                    <Button fab color="primary" aria-label="add">
+                                        <AddIcon />
+                                    </Button>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography type="title">Deseases History</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Analyzes patient={storePatient.currentPatient} />
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
                         </Grid>
                     </Grid>
                 </Paper>

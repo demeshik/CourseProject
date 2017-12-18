@@ -20,7 +20,7 @@ namespace CourseProject.Repo.Repositories
 
         public T Get(int id)
         {
-            return entities.SingleOrDefault(s => s.Id == id).Include;
+            return entities.Find(id);
         }
 
         public IEnumerable<T> GetAll()
